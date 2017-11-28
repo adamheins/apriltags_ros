@@ -144,8 +144,13 @@ void AprilTagDetector::imageCb(const sensor_msgs::ImageConstPtr& msg, const sens
     tf::poseStampedMsgToTF(tag_pose, tag_transform);
     tf_pub_.sendTransform(tf::StampedTransform(tag_transform, tag_transform.stamp_, tag_transform.frame_id_, description.frame_name()));
   }
+
   detections_pub_.publish(tag_detection_array);
   pose_pub_.publish(tag_pose_array);
+
+  // Convert to RGB before publishing.
+  cv::cvtColor(cv_ptr->image, cv_ptr->image, CV_BGR2RGB);
+
   image_pub_.publish(cv_ptr->toImageMsg());
 }
 
