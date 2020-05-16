@@ -124,15 +124,15 @@ void AprilTagDetector::imageCb(const sensor_msgs::ImageConstPtr& msg, const sens
     // Eigen::Matrix3d rot = transform.block(0, 0, 3, 3);
     // Eigen::Quaternion<double> rot_quaternion = Eigen::Quaternion<double>(rot);
 
-    Eigen::Vector3d trans;
-    Eigen::Matrix3d rot;
-    detection.getRelativeTranslationRotation(tag_size, fx, fy, px, py, trans, rot);
-    Eigen::Quaternion<double> rot_quaternion = Eigen::Quaternion<double>(rot);
+    Eigen::Vector3d translation;
+    Eigen::Matrix3d rot_mat;
+    detection.getRelativeTranslationRotation(tag_size, fx, fy, px, py, translation, rot_mat);
+    Eigen::Quaternion<double> rot_quaternion = Eigen::Quaternion<double>(rot_mat);
 
     geometry_msgs::PoseStamped tag_pose;
-    tag_pose.pose.position.x = transform(0, 3);
-    tag_pose.pose.position.y = transform(1, 3);
-    tag_pose.pose.position.z = transform(2, 3);
+    tag_pose.pose.position.x = translation(0);
+    tag_pose.pose.position.y = translation(1);
+    tag_pose.pose.position.z = translation(2);
     tag_pose.pose.orientation.x = rot_quaternion.x();
     tag_pose.pose.orientation.y = rot_quaternion.y();
     tag_pose.pose.orientation.z = rot_quaternion.z();
