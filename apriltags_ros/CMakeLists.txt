@@ -36,7 +36,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES apriltag_detector
   CATKIN_DEPENDS apriltags image_transport roscpp sensor_msgs geometry_msgs tf cv_bridge message_runtime nodelet std_msgs
-  DEPENDS Eigen3
+  DEPENDS EIGEN3
 )
 
 ###########
@@ -45,7 +45,7 @@ catkin_package(
 
 include_directories(include)
 include_directories(
-  ${Eigen3_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )
 
